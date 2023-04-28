@@ -1,10 +1,10 @@
 # LinkedIn-Auto-Endorse
 Chrome Extension to Auto Endorse
 <p align="center">
-  <img src="https://github.com/chanychi/LinkedIn-Auto-Endorse/blob/master/assets/hydra.png" width="75" height="75"/>
+  <img src="https://github.com/chanychi/LinkedIn-Auto-Endorse/blob/master/assets/hydra.png" width="175" height="175"/>
 </p>
 
-<h1 align="center">Bypass Paywalls</h1>
+<h1 align="center">Skill Endorsement</h1>
 
 *LinkedIn-Auto-Endorse is a web browser extension to help endorse all skills.*
 
