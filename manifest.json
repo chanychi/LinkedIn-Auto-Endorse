@@ -1,0 +1,11 @@
+{
+  "name": "LinkedIn Auto Endorsement",
+  "description": "Endorsement Tool for the Lazy",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": ["storage", "activeTab", "scripting"],
+  "action": {
+      "default_popup": "popup.html",
+      "default_icon": "assets/hydra.png"
+  }
+}
