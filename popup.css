@@ -115,3 +115,12 @@ a {
   margin-bottom: 10px;
 }
 
+.history {
+  color: white;
+  font-size: 12px;
+}
+
+span {
+  color: red;
+  font-size: 11px;
+}
