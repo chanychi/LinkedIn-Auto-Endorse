@@ -9,7 +9,9 @@ async function createHistory() {
   })
   return result[0].result;
 }
-
+/*
+createHistory query the tab's localStorage and returns a promise. The promise is passed to the popup to store it in the chrome's storage - allowing it to persist when the user is not on LinkedIn
+*/
 createHistory()
   .then((data) => {
     const span = document.querySelector('span')
