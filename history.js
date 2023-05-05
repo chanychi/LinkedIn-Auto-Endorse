@@ -6,11 +6,11 @@ const HISTORY_MAX = {
   'size': 5
 }
 
-const getLocalStorage = (key) => JSON.parse(localStorage.getItem(key) || '[]');
+const getExtLocalStorage = (key) => JSON.parse(localStorage.getItem(key) || '[]');
 
-const setLocalStorage = (collection) => {
+const setExtLocalStorage = (collection) => {
   if (collection?.length) localStorage.setItem(STORAGE.key, JSON.stringify(collection));
-  return getLocalStorage(STORAGE.key);
+  return getExtLocalStorage(STORAGE.key);
 }
 
 const getMaxHistory = (collection) => collection.length > `${HISTORY_MAX.size}` ? collection.slice(-HISTORY_MAX.size) : collection.length ? collection : [];
@@ -28,7 +28,7 @@ const renderHistory = (collection) => {
   nodes.forEach(node => span.append(node));
 }
 
-async function createHistory() {
+const getEndorsedUsers = async () => {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   const result = await chrome.scripting.executeScript({
     args: [STORAGE],
@@ -42,8 +42,8 @@ async function createHistory() {
 /*
 createHistory query the tab's localStorage and returns a promise. The promise is passed to the popup to store it in the chrome's storage - allowing it to persist when the user is not on LinkedIn
 */
-createHistory()
-  .then(setLocalStorage)
+getEndorsedUsers()
+  .then(setExtLocalStorage)
   .then(getMaxHistory)
   .then(renderHistory)
   .catch((error) => console.log(error));

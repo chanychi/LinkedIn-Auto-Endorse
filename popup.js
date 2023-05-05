@@ -1,18 +1,5 @@
 // Snag our button
 let btn = document.getElementById("endorse-btn")
-
-async function createHistory() {
-  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-
-  const result = await chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    function: () => {
-      return [...JSON.parse(localStorage.getItem('ListOfEndorsed') || "[]")];
-    }
-  })
-  return result[0].result;
-}
-
 // Run on click
 btn.addEventListener("click", async () => {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true }) // Find current tab
