@@ -1,5 +1,6 @@
 // Snag our button
 let btn = document.getElementById("endorse-btn")
+
 // Run on click
 btn.addEventListener("click", async () => {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true }) // Find current tab
@@ -11,35 +12,46 @@ btn.addEventListener("click", async () => {
       const url = new URL('', currURLWindow);
       const containsProfile = url.pathname.includes("/in/");
       const getConnectionName = document.querySelector("h1");
-      let listOfEndorsed = [];
 
+      function saveEndorsement(name) {
+        let storedNames = JSON.parse(localStorage.getItem('ListOfEndorsed') || "[]");
+        let listOfEndorsed = [...new Set([...storedNames, name])];
+        localStorage.setItem('ListOfEndorsed', JSON.stringify(listOfEndorsed));
+      }
+
+      function endorseSkills() {
+        document.querySelectorAll('.pvs-navigation__text').forEach((i) => {
+          if (i.innerHTML.indexOf('skills') > -1) {
+            i.parentElement.click()
+
+            setTimeout(function () {
+              window.scrollTo(0, document.body.scrollHeight - 500);
+              const skills = document.querySelectorAll('.pv2 > .artdeco-button--muted');
+
+              for (let i = 0; i < skills.length; ++i) {
+                endorseSkill(skills[i]);
+              }
+            }, 2000)
+          }
+        });
+      }
+
+      function endorseSkill(skillBtn) {
+        const endorsed = !!skillBtn.querySelector('.artdeco-button__icon')
+        if (!endorsed) {
+          skillBtn.click();
+        }
+      }
+      
       if (!getConnectionName?.innerHTML) return;
       if (url.hostname !== "www.linkedin.com" && !containsProfile) return;
 
       if (containsProfile) {
-        let storedNames = JSON.parse(localStorage.getItem('ListOfEndorsed') || "[]");
-        listOfEndorsed = [...new Set([...storedNames, getConnectionName?.innerHTML])];
-        localStorage.setItem('ListOfEndorsed', JSON.stringify(listOfEndorsed));
+        saveEndorsement(getConnectionName.innerHTML);
       }
 
-      document.querySelectorAll('.pvs-navigation__text').forEach((i) => {
-        if (i.innerHTML.indexOf('skills') > -1) {
-          i.parentElement.click()
-
-          setTimeout(function () {
-            window.scrollTo(0, document.body.scrollHeight - 500);
-            const skills = document.querySelectorAll('.pv2 > .artdeco-button--muted');
-
-            for (let i = 0; i < skills.length; ++i) {
-              const btn = skills[i];
-              const endorsed = !!btn.querySelector('.artdeco-button__icon')
-              if (!endorsed) {
-                btn.click();
-              }
-            }
-          }, 2000)
-        }
-      });
+      endorseSkills();
     }
   })
 })
+
