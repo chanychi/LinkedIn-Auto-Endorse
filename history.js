@@ -13,7 +13,7 @@ const setLocalStorage = (collection) => {
   return getLocalStorage(STORAGE.key);
 }
 
-const getLastFive = (collection) => collection > `${HISTORY_MAX.size}` ? collection.slice(-HISTORY_MAX.size) : collection.length ? collection : [];
+const getLastFive = (collection) => collection.length > `${HISTORY_MAX.size}` ? collection.slice(-HISTORY_MAX.size) : collection.length ? collection : [];
 
 const renderFive = (collection) => {
   const span = document.querySelector('span');
