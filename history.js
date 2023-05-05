@@ -13,9 +13,9 @@ const setLocalStorage = (collection) => {
   return getLocalStorage(STORAGE.key);
 }
 
-const getLastFive = (collection) => collection.length > `${HISTORY_MAX.size}` ? collection.slice(-HISTORY_MAX.size) : collection.length ? collection : [];
+const getMaxHistory = (collection) => collection.length > `${HISTORY_MAX.size}` ? collection.slice(-HISTORY_MAX.size) : collection.length ? collection : [];
 
-const renderFive = (collection) => {
+const renderHistory = (collection) => {
   const span = document.querySelector('span');
   span.innerHTML = '';
 
@@ -44,6 +44,6 @@ createHistory query the tab's localStorage and returns a promise. The promise is
 */
 createHistory()
   .then(setLocalStorage)
-  .then(getLastFive)
-  .then(renderFive)
+  .then(getMaxHistory)
+  .then(renderHistory)
   .catch((error) => console.log(error));
